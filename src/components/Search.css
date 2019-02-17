@@ -14,8 +14,10 @@
 
 .search__icon {
     color: gainsboro;
+    margin-left: 6px;
 }
 
+/* ToDo: Use polyfill for focus-within hence it is not supported by IE */
 .search:focus-within {
     border: 1px solid gray;
 }
