@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Search from './Search';
+import * as api from '../utils/api';
 
 class App extends Component {
   state = {
@@ -8,6 +9,7 @@ class App extends Component {
 
   handleQueryChange = (query) => {
     this.setState({query});
+    api.search(query).then(res => console.log(res));
   }
 
   render() {
