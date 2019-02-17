@@ -46,3 +46,7 @@ body {
     max-width: 1140px;
   }
 }
+
+.pt-1 {
+  margin-top: 16px;
+}

@@ -1,0 +1,25 @@
+.search {
+    display: flex;
+    border: 1px solid gainsboro;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.search__input {
+    border: 0;
+    outline: 0;
+    flex: 1;
+}
+
+.search__icon {
+    color: gainsboro;
+}
+
+.search:focus-within {
+    border: 1px solid gray;
+}
+
+.search:focus-within .search__icon {
+    color: gray;
+}

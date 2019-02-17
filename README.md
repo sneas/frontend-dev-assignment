@@ -2,6 +2,8 @@
 
 * For the sake of simplicity Bootstrap's container class has been added to index.css
 * How about styled components?
+* How about typescript?
+* Use fontawesome for appropriate icons
 
 ## de Bijenkorf Frontend Dev assignment
 
