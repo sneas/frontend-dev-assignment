@@ -1,3 +1,8 @@
+## Developer's notes
+
+* For the sake of simplicity Bootstrap's container class has been added to index.css
+* How about styled components?
+
 ## de Bijenkorf Frontend Dev assignment
 
 This project allows de Bijenkorf to assess potential frontend candidates with real, working code.
