@@ -17,6 +17,10 @@
     margin-left: 6px;
 }
 
+.search__icon--clickable {
+    cursor: pointer;
+}
+
 /* ToDo: Use polyfill for focus-within hence it is not supported by IE */
 .search:focus-within {
     border: 1px solid gray;

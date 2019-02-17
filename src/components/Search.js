@@ -23,7 +23,7 @@ class Search extends Component {
         <label className="search">
           <input type="text" className="search__input" value={this.props.value} onChange={this.handleQueryChange} />
           {this.props.value !== '' && (
-              <FontAwesomeIcon className="search__icon" icon={faTimesCircle} onClick={this.clear} />
+              <FontAwesomeIcon className="search__icon search__icon--clickable" icon={faTimesCircle} onClick={this.clear} />
           )}
           <FontAwesomeIcon className="search__icon" icon={faSearch} />
         </label>
