@@ -1,140 +1,33 @@
 import React, { Component } from "react";
-import Search from "./Search";
-import * as api from "../utils/api";
-import SuggestionBox from "./SuggestionBox";
+import SearchBox from "./SearchBox";
 
 class App extends Component {
-  state = {
-    query: "",
-    userQuery: "",
-    suggestions: [],
-    suggestionIndex: -1
-  };
-
-  handleQueryChange = query => {
-    this.setState({ query, userQuery: query, suggestionIndex: -1 });
-
-    if (query.length < 2) {
-      this.setState({ suggestions: [] });
-      return;
-    }
-
-    api.search(query).then(res => {
-      this.setState({
-        suggestions: res.map(suggestion => suggestion.searchterm)
-      });
-    });
-  };
-
-  handleKeyDown = e => {
-    const code = e.keyCode;
-
-    switch (code) {
-      case 27:
-        this.resetSuggestionIndex();
-        break;
-      case 40:
-        e.preventDefault();
-        this.increaseSuggestionIndex();
-        break;
-      case 38:
-        e.preventDefault();
-        this.decreaseSuggestionIndex();
-        break;
-      case 13:
-        this.commitSelectedIndex();
-        break;
-      default:
-        break;
-    }
-  };
-
-  handleKeyUp = e => {};
-
-  hideSuggestion() {
-    this.setState({ suggestions: [], suggestionIndex: -1 });
-  }
-
-  increaseSuggestionIndex() {
-    this.setState(prev => {
-      let nextIndex = prev.suggestionIndex + 1;
-      let query = prev.userQuery;
-
-      if (nextIndex < prev.suggestions.length) {
-        query = prev.suggestions[nextIndex];
-      } else {
-        nextIndex = -1;
-      }
-
-      return {
-        query,
-        suggestionIndex: nextIndex
-      };
-    });
-  }
-
-  decreaseSuggestionIndex() {
-    this.setState(prev => {
-      let nextIndex = prev.suggestionIndex - 1;
-      let query = prev.userQuery;
-
-      if (nextIndex >= 0) {
-        query = prev.suggestions[nextIndex];
-      } else if (nextIndex < -1) {
-        nextIndex = prev.suggestions.length - 1;
-      }
-
-      return {
-        query,
-        suggestionIndex: nextIndex
-      };
-    });
-  }
-
-  resetSuggestionIndex() {
-    this.setState(prev => ({
-      suggestionIndex: -1,
-      query: prev.userQuery
-    }));
-  }
-
-  commitSelectedIndex() {
-    this.setState(prev => {
-      const { suggestionIndex } = prev;
-      if (suggestionIndex === -1) {
-        return {};
-      }
-
-      return {
-        suggestionIndex: -1,
-        userQuery: prev.suggestions[suggestionIndex],
-        query: prev.suggestions[suggestionIndex],
-        suggestions: [prev.suggestions[suggestionIndex]]
-      };
-    });
-  }
-
   render() {
-    let searchValue = this.state.query;
-
-    if (this.state.suggestionIndex > -1) {
-      searchValue = this.state.suggestions[this.state.suggestionIndex];
-    }
-
     return (
       <div className="container pt-1">
-        <Search
-          value={searchValue}
-          onChange={this.handleQueryChange}
-          onKeyDown={this.handleKeyDown}
-          onKeyUp={this.handleKeyUp}
-        />
-        {this.state.suggestions.length > 0 && (
-          <SuggestionBox
-            list={this.state.suggestions}
-            index={this.state.suggestionIndex}
-          />
-        )}
+        <SearchBox />
+        <p>
+          Ik ben makelaar in koffi, en woon op de Lauriergracht No 37. Het is
+          mijn gewoonte niet, romans te schrijven, of zulke dingen, en het heeft
+          dan ook lang geduurd, voor ik er toe overging een paar riem papier
+          extra te bestellen, en het werk aan te vangen, dat gij, lieve lezer,
+          zoâven in de hand hebt genomen, en dat ge lezen moet als ge makelaar
+          in koffie zijt, of als ge wat anders zijt. Niet alleen dat ik nooit
+          iets schreef wat naar een roman geleek, maar ik houd er zelfs niet
+          van, iets dergelijks te lezen, omdat ik een man van zaken ben.
+        </p>
+
+        <p>
+          Sedert jaren vraag ik mij af, waartoe zulke dingen dienen, en ik sta
+          verbaasd over de onbeschaamdheid, waarmee een dichter of
+          romanverteller u iets op de mouw durft spelden, dat nooit gebeurd is,
+          en meestal niet gebeuren kan.Als ik in mijn vak -- ik ben makelaar in
+          koffie, en woon op de Lauriergracht No 37 -- aan een principaal -- een
+          principaal is iemand die koffie verkoopt -- een opgave deed, waarin
+          maar een klein gedeelte der onwaarheden voorkwam, die in gedichten en
+          romans de hoofdzaak uitmaken, zou hij terstond Busselinck & Waterman
+          nemen.
+        </p>
       </div>
     );
   }

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import "./SuggestionBox.css";
+import "./Suggestion.css";
 
-class SuggestionBox extends Component {
+class Suggestion extends Component {
   static propTypes = {
     list: PropTypes.arrayOf(PropTypes.string),
     index: PropTypes.number
@@ -34,4 +34,4 @@ class SuggestionBox extends Component {
   }
 }
 
-export default SuggestionBox;
+export default Suggestion;
