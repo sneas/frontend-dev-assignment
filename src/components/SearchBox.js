@@ -9,7 +9,8 @@ class SearchBox extends Component {
     query: "",
     userQuery: "",
     suggestions: [],
-    suggestionIndex: -1
+    suggestionIndex: -1,
+    suggestionVisible: false
   };
 
   handleQueryChange = query => {
@@ -52,9 +53,17 @@ class SearchBox extends Component {
 
   handleKeyUp = e => {};
 
-  hideSuggestion() {
-    this.setState({ suggestions: [], suggestionIndex: -1 });
-  }
+  handleFocus = e => {
+    this.setState({
+      suggestionVisible: true
+    });
+  };
+
+  handleBlur = e => {
+    this.setState({
+      suggestionVisible: false
+    });
+  };
 
   increaseSuggestionIndex() {
     this.setState(prev => {
@@ -110,7 +119,7 @@ class SearchBox extends Component {
         suggestionIndex: -1,
         userQuery: prev.suggestions[suggestionIndex],
         query: prev.suggestions[suggestionIndex],
-        suggestions: [prev.suggestions[suggestionIndex]]
+        suggestions: []
       };
     });
   }
@@ -129,17 +138,20 @@ class SearchBox extends Component {
           onChange={this.handleQueryChange}
           onKeyDown={this.handleKeyDown}
           onKeyUp={this.handleKeyUp}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
         />
-        {this.state.suggestions.length > 0 && (
-          <div className="search-box__suggestion-container">
-            <div className="search-box__suggestion">
-              <SuggestionBox
-                list={this.state.suggestions}
-                index={this.state.suggestionIndex}
-              />
+        {this.state.suggestionVisible &&
+          this.state.suggestions.length > 0 && (
+            <div className="search-box__suggestion-container">
+              <div className="search-box__suggestion">
+                <SuggestionBox
+                  list={this.state.suggestions}
+                  index={this.state.suggestionIndex}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
     );
   }

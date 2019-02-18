@@ -9,7 +9,9 @@ class Search extends Component {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onKeyDown: PropTypes.func,
-    onKeyUp: PropTypes.func
+    onKeyUp: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func
   };
 
   handleQueryChange = e => {
@@ -22,6 +24,14 @@ class Search extends Component {
 
   handleKeyUp = e => {
     this.props.onKeyUp && this.props.onKeyUp(e);
+  };
+
+  handleBlur = e => {
+    this.props.onBlur && this.props.onBlur(e);
+  };
+
+  handleFocus = e => {
+    this.props.onFocus && this.props.onFocus(e);
   };
 
   clear = () => {
@@ -38,6 +48,8 @@ class Search extends Component {
           onChange={this.handleQueryChange}
           onKeyDown={this.handleKeyDown}
           onKeyUp={this.handleKeyUp}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
           placeholder="Zoeken"
         />
         {this.props.value !== "" && (
