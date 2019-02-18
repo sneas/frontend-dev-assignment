@@ -26,6 +26,12 @@ class SearchBox extends Component {
     suggestionVisible: false
   };
 
+  hideTimer;
+
+  componentWillUnMount() {
+    clearTimeout(this.hideTimer); //We should always destroy these kind of handlers
+  }
+
   handleQueryChange = query => {
     this.setState({ query, userQuery: query, suggestionIndex: -1 });
 
@@ -67,6 +73,7 @@ class SearchBox extends Component {
   handleKeyUp = e => {};
 
   handleFocus = e => {
+    clearTimeout(this.hideTimer);
     this.setState({
       suggestionVisible: true
     });
@@ -74,7 +81,7 @@ class SearchBox extends Component {
 
   handleBlur = e => {
     // Hide with delay in order to handle suggestion box click
-    setTimeout(() => {
+    this.hideTimer = setTimeout(() => {
       this.setState({
         suggestionVisible: false
       });
