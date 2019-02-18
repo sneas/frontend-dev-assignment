@@ -1,6 +1,6 @@
-export const queryString = (params) => {
+export const queryString = params => {
   const esc = encodeURIComponent;
   return Object.keys(params)
-      .map(k => esc(k) + '=' + esc(params[k]))
-      .join('&');
-}
+    .map(k => esc(k) + "=" + esc(params[k]))
+    .join("&");
+};
