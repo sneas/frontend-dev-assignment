@@ -4,6 +4,19 @@ import * as api from "../utils/api";
 import SuggestionBox from "./Suggestion";
 import "./SearchBox.css";
 
+const commitSuggestedIndex = suggestedIndex => state => {
+  if (suggestedIndex === -1) {
+    return {};
+  }
+
+  return {
+    suggestionIndex: -1,
+    userQuery: state.suggestions[suggestedIndex],
+    query: state.suggestions[suggestedIndex],
+    suggestions: []
+  };
+};
+
 class SearchBox extends Component {
   state = {
     query: "",
@@ -60,8 +73,17 @@ class SearchBox extends Component {
   };
 
   handleBlur = e => {
-    this.setState({
-      suggestionVisible: false
+    // Hide with delay in order to handle suggestion box click
+    setTimeout(() => {
+      this.setState({
+        suggestionVisible: false
+      });
+    }, 400);
+  };
+
+  handleSuggestionSelect = suggestionIndex => {
+    this.setState(prev => {
+      return commitSuggestedIndex(suggestionIndex)(prev);
     });
   };
 
@@ -111,16 +133,7 @@ class SearchBox extends Component {
   commitSelectedIndex() {
     this.setState(prev => {
       const { suggestionIndex } = prev;
-      if (suggestionIndex === -1) {
-        return {};
-      }
-
-      return {
-        suggestionIndex: -1,
-        userQuery: prev.suggestions[suggestionIndex],
-        query: prev.suggestions[suggestionIndex],
-        suggestions: []
-      };
+      return commitSuggestedIndex(suggestionIndex)(prev);
     });
   }
 
@@ -148,6 +161,7 @@ class SearchBox extends Component {
                 <SuggestionBox
                   list={this.state.suggestions}
                   index={this.state.suggestionIndex}
+                  onSelect={this.handleSuggestionSelect}
                 />
               </div>
             </div>

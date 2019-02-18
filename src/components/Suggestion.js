@@ -5,12 +5,17 @@ import "./Suggestion.css";
 class Suggestion extends Component {
   static propTypes = {
     list: PropTypes.arrayOf(PropTypes.string),
-    index: PropTypes.number
+    index: PropTypes.number,
+    onSelect: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     list: [],
     index: -1
+  };
+
+  handleSuggestionClick = index => e => {
+    this.props.onSelect(index, e);
   };
 
   render() {
@@ -25,6 +30,7 @@ class Suggestion extends Component {
                 ? " suggestion-box__item--selected"
                 : "")
             }
+            onClick={this.handleSuggestionClick(index)}
           >
             {item}
           </li>
