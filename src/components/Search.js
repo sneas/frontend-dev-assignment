@@ -38,6 +38,7 @@ class Search extends Component {
           onChange={this.handleQueryChange}
           onKeyDown={this.handleKeyDown}
           onKeyUp={this.handleKeyUp}
+          placeholder="Zoeken"
         />
         {this.props.value !== "" && (
           <FontAwesomeIcon
