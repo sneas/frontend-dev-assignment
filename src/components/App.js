@@ -1,11 +1,20 @@
 import React, { Component } from "react";
 import SearchBox from "./SearchBox";
+import * as api from "../utils/api";
+
+const search = query =>
+  api.search(query).then(res =>
+    res.map(suggestion => ({
+      label: `${suggestion.searchterm} (${suggestion.nrResults})`,
+      value: suggestion.searchterm
+    }))
+  );
 
 class App extends Component {
   render() {
     return (
       <div className="container pt-1">
-        <SearchBox />
+        <SearchBox search={search} />
         <p>
           Ik ben makelaar in koffi, en woon op de Lauriergracht No 37. Het is
           mijn gewoonte niet, romans te schrijven, of zulke dingen, en het heeft

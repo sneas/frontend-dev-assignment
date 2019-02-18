@@ -8,6 +8,11 @@
     border: 1px solid gainsboro;
     border-top: 0;
     padding: 12px;
+    color: gray;
+}
+
+.suggestion-box__item-highlight {
+    color: black;
 }
 
 .suggestion-box__item:hover {

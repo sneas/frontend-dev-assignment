@@ -8,6 +8,7 @@
 * Suggestion box preferable behaviours and limitations:
     - memoize data requests
     - debounce data requests
+    - case-insensitive
     - request for new data on query change
     - request for new data if query is 2 symbols and more
     - hide search box in case of less than 2 symbols
@@ -19,9 +20,8 @@
     - esc button deselects items
     - when item is selected the query replaces with the selected text
     - query shows original text on deselection
-    - suggestion disappears on form looses focus
-    - suggestion disappears on no items to be suggested
-    - suggestion disappears in case of one result which is equal to an entered query
+    - suggestion disappears if form looses focus
+    - suggestion disappears if no items to be suggested
     - display suggestion as a new query on selecting
     - apply suggestion and hide suggestion box on enter
     - select suggestion on mouse enter

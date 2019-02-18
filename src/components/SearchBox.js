@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Search from "./Search";
-import * as api from "../utils/api";
 import SuggestionBox from "./Suggestion";
+import PropTypes from "prop-types";
 import "./SearchBox.css";
 
 const commitSuggestedIndex = suggestedIndex => state => {
@@ -11,13 +11,17 @@ const commitSuggestedIndex = suggestedIndex => state => {
 
   return {
     suggestionIndex: -1,
-    userQuery: state.suggestions[suggestedIndex],
-    query: state.suggestions[suggestedIndex],
+    userQuery: state.suggestions[suggestedIndex].value,
+    query: state.suggestions[suggestedIndex].value,
     suggestions: []
   };
 };
 
 class SearchBox extends Component {
+  static propTypes = {
+    search: PropTypes.func.isRequired
+  };
+
   state = {
     query: "",
     userQuery: "",
@@ -40,9 +44,9 @@ class SearchBox extends Component {
       return;
     }
 
-    api.search(query).then(res => {
+    this.props.search(query).then(suggestions => {
       this.setState({
-        suggestions: res.map(suggestion => suggestion.searchterm)
+        suggestions
       });
     });
   };
@@ -100,7 +104,7 @@ class SearchBox extends Component {
       let query = prev.userQuery;
 
       if (nextIndex < prev.suggestions.length) {
-        query = prev.suggestions[nextIndex];
+        query = prev.suggestions[nextIndex].value;
       } else {
         nextIndex = -1;
       }
@@ -118,7 +122,7 @@ class SearchBox extends Component {
       let query = prev.userQuery;
 
       if (nextIndex >= 0) {
-        query = prev.suggestions[nextIndex];
+        query = prev.suggestions[nextIndex].value;
       } else if (nextIndex < -1) {
         nextIndex = prev.suggestions.length - 1;
       }
@@ -147,10 +151,6 @@ class SearchBox extends Component {
   render() {
     let searchValue = this.state.query;
 
-    if (this.state.suggestionIndex > -1) {
-      searchValue = this.state.suggestions[this.state.suggestionIndex];
-    }
-
     return (
       <div className="search-box">
         <Search
@@ -166,9 +166,10 @@ class SearchBox extends Component {
             <div className="search-box__suggestion-container">
               <div className="search-box__suggestion">
                 <SuggestionBox
-                  list={this.state.suggestions}
+                  suggestions={this.state.suggestions}
                   index={this.state.suggestionIndex}
                   onSelect={this.handleSuggestionSelect}
+                  query={this.state.userQuery}
                 />
               </div>
             </div>
