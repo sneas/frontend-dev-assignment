@@ -11,7 +11,8 @@ class Search extends Component {
     onKeyDown: PropTypes.func,
     onKeyUp: PropTypes.func,
     onFocus: PropTypes.func,
-    onBlur: PropTypes.func
+    onBlur: PropTypes.func,
+    onSubmit: PropTypes.func
   };
 
   textInput;
@@ -36,17 +37,29 @@ class Search extends Component {
     this.props.onFocus && this.props.onFocus(e);
   };
 
-  clear = () => {
+  handleClearClick = () => {
     this.props.onChange("");
+    this.focus();
+  };
+
+  handleSubmitClick = () => {
+    if (this.props.value !== "") {
+      this.props.onSubmit && this.props.onSubmit(this.props.value);
+    } else {
+      this.focus();
+    }
+  };
+
+  focus() {
     if (this.textInput) {
       this.textInput.focus();
     }
-  };
+  }
 
   render() {
     let clearButtonExtraClass = "";
     if (this.props.value.length === 0) {
-      clearButtonExtraClass = "search__clear-button--hidden";
+      clearButtonExtraClass = "search__button--hidden";
     }
 
     return (
@@ -66,16 +79,22 @@ class Search extends Component {
           placeholder="Zoeken"
         />
         <button
-          onClick={this.clear}
-          className={`search__clear-button ${clearButtonExtraClass}`}
+          onClick={this.handleClearClick}
+          className={`search__button ${clearButtonExtraClass}`}
           tabIndex="-1"
         >
           <FontAwesomeIcon className="search__icon" icon={faTimesCircle} />
         </button>
-        <FontAwesomeIcon
-          className="search__icon search__icon--identifier"
-          icon={faSearch}
-        />
+        <button
+          onClick={this.handleSubmitClick}
+          className="search__button"
+          tabIndex="-1"
+        >
+          <FontAwesomeIcon
+            className="search__icon search__icon--identifier"
+            icon={faSearch}
+          />
+        </button>
       </label>
     );
   }

@@ -12,17 +12,8 @@
     flex: 1;
 }
 
-.search__icon {
+.search__button {
     color: gainsboro;
-}
-
-.search__icon--identifier {
-    margin-left: 8px;
-}
-
-.search__clear-button {
-    color: gainsboro;
-    margin-left: 6px;
     cursor: pointer;
     border: 0px none;
     outline: 0;
@@ -31,9 +22,10 @@
     display: inline-block;
     font-size: 1em;
     visibility: visible;
+    margin-left: 8px;
 }
 
-.search__clear-button--hidden {
+.search__button--hidden {
     visibility: hidden;
 }
 
@@ -42,6 +34,6 @@
     border: 1px solid gray;
 }
 
-.search:focus-within .search__icon {
+.search:focus-within .search__button {
     color: gray;
 }

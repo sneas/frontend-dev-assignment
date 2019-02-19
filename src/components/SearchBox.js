@@ -4,24 +4,12 @@ import SuggestionBox from "./Suggestion";
 import PropTypes from "prop-types";
 import "./SearchBox.css";
 
-const commitSuggestedIndex = suggestedIndex => state => {
-  if (suggestedIndex === -1) {
-    return {};
-  }
-
-  return {
-    suggestionIndex: -1,
-    userQuery: state.suggestions[suggestedIndex].value,
-    query: state.suggestions[suggestedIndex].value,
-    suggestions: []
-  };
-};
-
 class SearchBox extends Component {
   static propTypes = {
     search: PropTypes.func.isRequired,
     query: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func
   };
 
   static defaultProps = {
@@ -40,7 +28,7 @@ class SearchBox extends Component {
   hideTimer;
 
   componentWillUnMount() {
-    clearTimeout(this.hideTimer); //We should always destroy these kind of handlers
+    clearTimeout(this.hideTimer);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -80,23 +68,21 @@ class SearchBox extends Component {
         this.decreaseSuggestionIndex();
         break;
       case 13:
-        this.commitSelectedIndex();
+        this.selectIndex(this.state.suggestionIndex);
         break;
       default:
         break;
     }
   };
 
-  handleKeyUp = e => {};
-
-  handleFocus = e => {
+  handleFocus = () => {
     clearTimeout(this.hideTimer);
     this.setState({
       suggestionVisible: true
     });
   };
 
-  handleBlur = e => {
+  handleBlur = () => {
     // Hide with delay in order to handle suggestion box click
     this.hideTimer = setTimeout(() => {
       this.setState(prev => ({
@@ -108,9 +94,7 @@ class SearchBox extends Component {
   };
 
   handleSuggestionSelect = suggestionIndex => {
-    this.setState(prev => {
-      return commitSuggestedIndex(suggestionIndex)(prev);
-    });
+    this.selectIndex(suggestionIndex);
   };
 
   increaseSuggestionIndex() {
@@ -156,12 +140,30 @@ class SearchBox extends Component {
     }));
   }
 
-  commitSelectedIndex() {
-    this.setState(prev => {
-      const { suggestionIndex } = prev;
-      return commitSuggestedIndex(suggestionIndex)(prev);
-    });
-  }
+  selectIndex = index => {
+    if (index === -1) {
+      this.submit(this.state.query);
+      return;
+    }
+
+    const selectedQuery = this.state.suggestions[index].value;
+
+    this.setState(
+      {
+        suggestionIndex: -1,
+        userQuery: selectedQuery,
+        query: selectedQuery,
+        suggestions: []
+      },
+      () => {
+        this.submit(this.state.query);
+      }
+    );
+  };
+
+  submit = query => {
+    this.props.onSubmit && this.props.onSubmit(query);
+  };
 
   render() {
     let searchValue = this.state.query;
@@ -175,6 +177,7 @@ class SearchBox extends Component {
           onKeyUp={this.handleKeyUp}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
+          onSubmit={this.submit}
         />
         {this.state.suggestionVisible &&
           this.state.suggestions.length > 0 && (

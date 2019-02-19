@@ -12,11 +12,16 @@ const search = query =>
 
 class App extends Component {
   state = {
-    query: ""
+    query: "",
+    submittedQuery: ""
   };
 
   handleQueryChange = query => {
     this.setState({ query });
+  };
+
+  handleSubmit = submittedQuery => {
+    this.setState({ submittedQuery });
   };
 
   render() {
@@ -25,6 +30,7 @@ class App extends Component {
         <SearchBox
           search={search}
           onChange={this.handleQueryChange}
+          onSubmit={this.handleSubmit}
           query={this.state.query}
         />
         <p>
@@ -50,7 +56,13 @@ class App extends Component {
           nemen.
         </p>
 
-        <p>Entered query: {this.state.query}</p>
+        <dl className="inline">
+          <dt>Entered query</dt>
+          <dd>{this.state.query}</dd>
+
+          <dt>Submitted query</dt>
+          <dd>{this.state.submittedQuery}</dd>
+        </dl>
       </div>
     );
   }

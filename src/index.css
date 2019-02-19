@@ -50,3 +50,14 @@ body {
 .pt-1 {
   padding-top: 16px;
 }
+
+dl.inline dt {
+  display: inline-block;
+  width: 20%;
+}
+
+dl.inline dd {
+  display: inline-block;
+  width: 70%;
+  margin: 0;
+}
