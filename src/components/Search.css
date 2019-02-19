@@ -14,11 +14,27 @@
 
 .search__icon {
     color: gainsboro;
-    margin-left: 6px;
 }
 
-.search__icon--clickable {
+.search__icon--identifier {
+    margin-left: 8px;
+}
+
+.search__clear-button {
+    color: gainsboro;
+    margin-left: 6px;
     cursor: pointer;
+    border: 0px none;
+    outline: 0;
+    padding: 0;
+    background: none;
+    display: inline-block;
+    font-size: 1em;
+    visibility: visible;
+}
+
+.search__clear-button--hidden {
+    visibility: hidden;
 }
 
 /* ToDo: Use polyfill for focus-within hence it is not supported by IE */

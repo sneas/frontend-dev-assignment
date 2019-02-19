@@ -14,6 +14,8 @@ class Search extends Component {
     onBlur: PropTypes.func
   };
 
+  textInput;
+
   handleQueryChange = e => {
     this.props.onChange(e.target.value);
   };
@@ -36,14 +38,25 @@ class Search extends Component {
 
   clear = () => {
     this.props.onChange("");
+    if (this.textInput) {
+      this.textInput.focus();
+    }
   };
 
   render() {
+    let clearButtonExtraClass = "";
+    if (this.props.value.length === 0) {
+      clearButtonExtraClass = "search__clear-button--hidden";
+    }
+
     return (
       <label className="search">
         <input
           type="text"
           className="search__input"
+          ref={input => {
+            this.textInput = input;
+          }}
           value={this.props.value}
           onChange={this.handleQueryChange}
           onKeyDown={this.handleKeyDown}
@@ -52,14 +65,17 @@ class Search extends Component {
           onBlur={this.handleBlur}
           placeholder="Zoeken"
         />
-        {this.props.value !== "" && (
-          <FontAwesomeIcon
-            className="search__icon search__icon--clickable"
-            icon={faTimesCircle}
-            onClick={this.clear}
-          />
-        )}
-        <FontAwesomeIcon className="search__icon" icon={faSearch} />
+        <button
+          onClick={this.clear}
+          className={`search__clear-button ${clearButtonExtraClass}`}
+          tabIndex="-1"
+        >
+          <FontAwesomeIcon className="search__icon" icon={faTimesCircle} />
+        </button>
+        <FontAwesomeIcon
+          className="search__icon search__icon--identifier"
+          icon={faSearch}
+        />
       </label>
     );
   }
