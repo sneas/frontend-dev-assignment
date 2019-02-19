@@ -11,10 +11,22 @@ const search = query =>
   );
 
 class App extends Component {
+  state = {
+    query: ""
+  };
+
+  handleQueryChange = query => {
+    this.setState({ query });
+  };
+
   render() {
     return (
       <div className="container pt-1">
-        <SearchBox search={search} />
+        <SearchBox
+          search={search}
+          onChange={this.handleQueryChange}
+          query={this.state.query}
+        />
         <p>
           Ik ben makelaar in koffi, en woon op de Lauriergracht No 37. Het is
           mijn gewoonte niet, romans te schrijven, of zulke dingen, en het heeft
@@ -37,6 +49,8 @@ class App extends Component {
           romans de hoofdzaak uitmaken, zou hij terstond Busselinck & Waterman
           nemen.
         </p>
+
+        <p>Entered query: {this.state.query}</p>
       </div>
     );
   }

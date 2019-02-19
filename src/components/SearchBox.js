@@ -19,12 +19,19 @@ const commitSuggestedIndex = suggestedIndex => state => {
 
 class SearchBox extends Component {
   static propTypes = {
-    search: PropTypes.func.isRequired
+    search: PropTypes.func.isRequired,
+    query: PropTypes.string,
+    onChange: PropTypes.func
+  };
+
+  static defaultProps = {
+    query: "",
+    onChange: () => {}
   };
 
   state = {
-    query: "",
-    userQuery: "",
+    query: this.props.query,
+    userQuery: this.props.query,
     suggestions: [],
     suggestionIndex: -1,
     suggestionVisible: false
@@ -34,6 +41,12 @@ class SearchBox extends Component {
 
   componentWillUnMount() {
     clearTimeout(this.hideTimer); //We should always destroy these kind of handlers
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.userQuery !== prevState.userQuery) {
+      this.props.onChange(this.state.userQuery);
+    }
   }
 
   handleQueryChange = query => {
@@ -86,9 +99,11 @@ class SearchBox extends Component {
   handleBlur = e => {
     // Hide with delay in order to handle suggestion box click
     this.hideTimer = setTimeout(() => {
-      this.setState({
-        suggestionVisible: false
-      });
+      this.setState(prev => ({
+        suggestionVisible: false,
+        query: prev.userQuery,
+        suggestionIndex: -1
+      }));
     }, 400);
   };
 

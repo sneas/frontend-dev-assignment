@@ -1,19 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./Suggestion.css";
-import { escapeRegexpString } from "../utils/regexp";
-import Parser from "html-react-parser";
-
-export const highlightQuery = query => wrapperClass => suggestion => {
-  if (query.length === 0 || suggestion.length === 0) {
-    return suggestion;
-  }
-
-  return suggestion.replace(
-    new RegExp(`(${escapeRegexpString(query)})`, "gi"),
-    `<span class="${wrapperClass}">$1</span>`
-  );
-};
+import Highlight from "./Highlight";
 
 class Suggestion extends Component {
   static propTypes = {
@@ -34,15 +22,11 @@ class Suggestion extends Component {
   };
 
   render() {
-    const highlightSuggestion = highlightQuery(this.props.query)(
-      "suggestion-box__item-highlight"
-    );
-
     return (
       <ul className="suggestion-box">
         {this.props.suggestions.map((suggestion, index) => (
           <li
-            key={index + suggestion.value}
+            key={index}
             className={
               "suggestion-box__item" +
               (index === this.props.index
@@ -51,7 +35,11 @@ class Suggestion extends Component {
             }
             onClick={this.handleSuggestionClick(index)}
           >
-            {Parser(highlightSuggestion(suggestion.label))}
+            <Highlight
+              text={suggestion.label}
+              highlight={this.props.query}
+              className="suggestion-box__item-highlight"
+            />
           </li>
         ))}
       </ul>
