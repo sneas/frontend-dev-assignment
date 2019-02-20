@@ -5,7 +5,7 @@
 * How about typescript?
 * Used fontawesome for appropriate icons
 * Used prop-types for validation and IDE autocomplete
-* Suggestion box preferable behaviours and limitations:
+* SuggestionBox box preferable behaviours and limitations:
     - memoize data requests (-)
     - debounce data requests (-)
     - case-insensitive (+)

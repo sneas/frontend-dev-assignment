@@ -1,6 +1,6 @@
 import React from "react";
 import Highlight from "./Highlight";
-import { shallow } from "../enzyme";
+import { shallow } from "../../enzyme";
 
 describe("Highlight", () => {
   it("returns as is result in case of empty highlight", () => {

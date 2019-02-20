@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import SearchBox from "./SearchBox";
-import * as api from "../utils/api";
+import SearchBox from "../SearchBox/SearchBox";
+import * as api from "../../utils/api";
 
 const search = query =>
   api.search(query).then(res =>

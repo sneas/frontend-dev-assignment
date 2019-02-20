@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import SearchInput from "./SearchInput";
-import SuggestionBox from "./Suggestion";
+import SearchInput from "../SearchInput/SearchInput";
+import SuggestionBox from "../SuggestionBox/SuggestionBox";
 import PropTypes from "prop-types";
 import "./SearchBox.css";
 

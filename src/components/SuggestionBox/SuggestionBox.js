@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import "./Suggestion.css";
-import Highlight from "./Highlight";
+import "./SuggestionBox.css";
+import Highlight from "../Highlight/Highlight";
 
-class Suggestion extends Component {
+class SuggestionBox extends Component {
   static propTypes = {
     suggestions: PropTypes.arrayOf(PropTypes.object),
     index: PropTypes.number,
@@ -47,4 +47,4 @@ class Suggestion extends Component {
   }
 }
 
-export default Suggestion;
+export default SuggestionBox;

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { escapeRegexpString } from "../utils/regexp";
+import { escapeRegexpString } from "../../utils/regexp";
 import Parser from "html-react-parser";
 
 const Highlight = ({ text, highlight, className }) => {
