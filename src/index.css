@@ -51,6 +51,10 @@ body {
   padding-top: 16px;
 }
 
+.txt-strong {
+  font-weight: bold;
+}
+
 dl.inline dt {
   display: inline-block;
   width: 20%;

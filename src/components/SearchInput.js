@@ -1,40 +1,33 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import "./Search.css";
+import "./SearchInput.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faSearch } from "@fortawesome/free-solid-svg-icons";
 
-class Search extends Component {
+class SearchInput extends Component {
   static propTypes = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    name: PropTypes.string,
+    value: PropTypes.string,
+    onChange: PropTypes.func,
     onKeyDown: PropTypes.func,
     onKeyUp: PropTypes.func,
     onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onSubmit: PropTypes.func
+    onBlur: PropTypes.func
+  };
+
+  static defaultProps = {
+    name: "",
+    value: "",
+    onChange: () => {},
+    onKeyDown: () => {},
+    onFocus: () => {},
+    onBlur: () => {}
   };
 
   textInput;
 
-  handleQueryChange = e => {
+  handleChange = e => {
     this.props.onChange(e.target.value);
-  };
-
-  handleKeyDown = e => {
-    this.props.onKeyDown && this.props.onKeyDown(e);
-  };
-
-  handleKeyUp = e => {
-    this.props.onKeyUp && this.props.onKeyUp(e);
-  };
-
-  handleBlur = e => {
-    this.props.onBlur && this.props.onBlur(e);
-  };
-
-  handleFocus = e => {
-    this.props.onFocus && this.props.onFocus(e);
   };
 
   handleClearClick = () => {
@@ -42,10 +35,9 @@ class Search extends Component {
     this.focus();
   };
 
-  handleSubmitClick = () => {
-    if (this.props.value !== "") {
-      this.props.onSubmit && this.props.onSubmit(this.props.value);
-    } else {
+  handleSubmitClick = e => {
+    if (this.props.value === "") {
+      e.preventDefault();
       this.focus();
     }
   };
@@ -66,19 +58,21 @@ class Search extends Component {
       <label className="search">
         <input
           type="text"
+          name={this.props.name}
+          value={this.props.value}
           className="search__input"
+          onChange={this.handleChange}
+          onKeyDown={this.props.onKeyDown}
+          onKeyUp={this.props.onKeyUp}
+          onFocus={this.props.onFocus}
+          onBlur={this.props.onBlur}
+          placeholder="Zoeken"
           ref={input => {
             this.textInput = input;
           }}
-          value={this.props.value}
-          onChange={this.handleQueryChange}
-          onKeyDown={this.handleKeyDown}
-          onKeyUp={this.handleKeyUp}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          placeholder="Zoeken"
         />
         <button
+          type="button"
           onClick={this.handleClearClick}
           className={`search__button ${clearButtonExtraClass}`}
           tabIndex="-1"
@@ -86,6 +80,7 @@ class Search extends Component {
           <FontAwesomeIcon className="search__icon" icon={faTimesCircle} />
         </button>
         <button
+          type="submit"
           onClick={this.handleSubmitClick}
           className="search__button"
           tabIndex="-1"
@@ -99,4 +94,4 @@ class Search extends Component {
     );
   }
 }
-export default Search;
+export default SearchInput;

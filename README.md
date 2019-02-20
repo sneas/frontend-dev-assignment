@@ -6,26 +6,28 @@
 * Used fontawesome for appropriate icons
 * Used prop-types for validation and IDE autocomplete
 * Suggestion box preferable behaviours and limitations:
-    - memoize data requests
-    - debounce data requests
-    - case-insensitive
-    - request for new data on query change
-    - request for new data if query is 2 symbols and more
-    - hide search box in case of less than 2 symbols
-    - select next item with arrow down
-    - select previous item with arrow up
-    - nothing selected by default
-    - if the last item, arrow down leads to deselecting anything, the next arrow down selects first item
-    - if the first item selected, arrow up leads to deselection, the next arrow up selects the last item
-    - esc button deselects items
-    - when item is selected the query replaces with the selected text
-    - query shows original text on deselection
-    - suggestion disappears if form looses focus
-    - suggestion disappears if no items to be suggested
-    - display suggestion as a new query on selecting
-    - apply suggestion and hide suggestion box on enter
-    - select suggestion on mouse enter
-    - apply suggestion and hide suggestion box on mouse click
+    - memoize data requests (-)
+    - debounce data requests (-)
+    - case-insensitive (+)
+    - request for new data on query change (+)
+    - request for new data if query is 2 symbols and more (+)
+    - hide search box in case of less than 2 symbols (+)
+    - select next item with arrow down (+)
+    - select previous item with arrow up (+)
+    - nothing selected by default (+)
+    - if the last item, arrow down leads to deselecting anything, the next arrow down selects first item (+)
+    - if the first item selected, arrow up leads to deselection, the next arrow up selects the last item (+)
+    - esc button deselects items (+)
+    - when item is selected the query replaces with the selected text (+)
+    - query shows original text on deselection (+)
+    - suggestion disappears if form looses focus (+)
+    - suggestion disappears if no items to be suggested (+)
+    - display suggestion as a new query on selecting with keyboard (+)
+    - apply suggestion and hide suggestion box on enter (+)
+    - apply suggestion and hide suggestion box on mouse click (+)
+    - display scroll on drop-down whenever needed (-)
+* Basically, the suggestion box mocks Google Chrome's autosuggestor
+* The demo shows SearchBox embedded into standard HTML form. The form reloads page with GET variable. This has been done on purpose to demonstrate SearchBox's compatibility with regular forms.
 
 ## de Bijenkorf Frontend Dev assignment
 

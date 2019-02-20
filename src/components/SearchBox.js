@@ -1,24 +1,26 @@
 import React, { Component } from "react";
-import Search from "./Search";
+import SearchInput from "./SearchInput";
 import SuggestionBox from "./Suggestion";
 import PropTypes from "prop-types";
 import "./SearchBox.css";
 
 class SearchBox extends Component {
   static propTypes = {
-    search: PropTypes.func.isRequired,
-    query: PropTypes.string,
+    name: PropTypes.string,
+    value: PropTypes.string,
+    doSearch: PropTypes.func.isRequired,
     onChange: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSelect: PropTypes.func
   };
 
   static defaultProps = {
-    query: "",
+    name: "",
+    value: "",
     onChange: () => {}
   };
 
   state = {
-    query: this.props.query,
+    query: this.props.value,
     userQuery: this.props.query,
     suggestions: [],
     suggestionIndex: -1,
@@ -37,7 +39,7 @@ class SearchBox extends Component {
     }
   }
 
-  handleQueryChange = query => {
+  handleInputChange = query => {
     this.setState({ query, userQuery: query, suggestionIndex: -1 });
 
     if (query.length < 2) {
@@ -45,7 +47,7 @@ class SearchBox extends Component {
       return;
     }
 
-    this.props.search(query).then(suggestions => {
+    this.props.doSearch(query).then(suggestions => {
       this.setState({
         suggestions
       });
@@ -68,7 +70,10 @@ class SearchBox extends Component {
         this.decreaseSuggestionIndex();
         break;
       case 13:
-        this.selectIndex(this.state.suggestionIndex);
+        if (this.state.suggestionIndex !== -1) {
+          e.preventDefault();
+          this.selectIndex(this.state.suggestionIndex);
+        }
         break;
       default:
         break;
@@ -141,13 +146,7 @@ class SearchBox extends Component {
   }
 
   selectIndex = index => {
-    if (index === -1) {
-      this.submit(this.state.query);
-      return;
-    }
-
     const selectedQuery = this.state.suggestions[index].value;
-
     this.setState(
       {
         suggestionIndex: -1,
@@ -156,13 +155,9 @@ class SearchBox extends Component {
         suggestions: []
       },
       () => {
-        this.submit(this.state.query);
+        this.props.onSelect();
       }
     );
-  };
-
-  submit = query => {
-    this.props.onSubmit && this.props.onSubmit(query);
   };
 
   render() {
@@ -170,14 +165,14 @@ class SearchBox extends Component {
 
     return (
       <div className="search-box">
-        <Search
+        <SearchInput
+          name={this.props.name}
           value={searchValue}
-          onChange={this.handleQueryChange}
+          onChange={this.handleInputChange}
           onKeyDown={this.handleKeyDown}
           onKeyUp={this.handleKeyUp}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
-          onSubmit={this.submit}
         />
         {this.state.suggestionVisible &&
           this.state.suggestions.length > 0 && (

@@ -11,28 +11,47 @@ const search = query =>
   );
 
 class App extends Component {
-  state = {
-    query: "",
-    submittedQuery: ""
-  };
+  constructor(props) {
+    super(props);
+
+    const params = new URLSearchParams(
+      window && window.location && window.location.search
+    );
+    const query = params.get("query") || "";
+
+    this.state = {
+      query,
+      submittedQuery: query
+    };
+  }
+
+  form;
 
   handleQueryChange = query => {
     this.setState({ query });
   };
 
-  handleSubmit = submittedQuery => {
-    this.setState({ submittedQuery });
+  handleSelect = () => {
+    this.form.submit();
   };
 
   render() {
     return (
       <div className="container pt-1">
-        <SearchBox
-          search={search}
-          onChange={this.handleQueryChange}
-          onSubmit={this.handleSubmit}
-          query={this.state.query}
-        />
+        <form
+          method="get"
+          ref={form => {
+            this.form = form;
+          }}
+        >
+          <SearchBox
+            name="query"
+            value={this.state.query}
+            doSearch={search}
+            onChange={this.handleQueryChange}
+            onSelect={this.handleSelect}
+          />
+        </form>
         <p>
           Ik ben makelaar in koffi, en woon op de Lauriergracht No 37. Het is
           mijn gewoonte niet, romans te schrijven, of zulke dingen, en het heeft
@@ -57,10 +76,10 @@ class App extends Component {
         </p>
 
         <dl className="inline">
-          <dt>Entered query</dt>
+          <dt className="txt-strong">Entered query</dt>
           <dd>{this.state.query}</dd>
 
-          <dt>Submitted query</dt>
+          <dt className="txt-strong">Submitted query</dt>
           <dd>{this.state.submittedQuery}</dd>
         </dl>
       </div>
