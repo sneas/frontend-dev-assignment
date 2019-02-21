@@ -2,22 +2,29 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./SuggestionBox.css";
 import Highlight from "../Highlight/Highlight";
+import { findNodeByAttribute } from "../../utils/find-node-by-attribute";
+
+const INDEX_DATA_ATTR = "data-index";
 
 class SuggestionBox extends Component {
   static propTypes = {
     suggestions: PropTypes.arrayOf(PropTypes.object),
     index: PropTypes.number,
     query: PropTypes.string,
-    onSelect: PropTypes.func.isRequired
+    onSelect: PropTypes.func
   };
 
   static defaultProps = {
     suggestions: [],
     index: -1,
-    query: ""
+    query: "",
+    onSelect: () => {}
   };
 
-  handleSuggestionClick = index => e => {
+  handleSuggestionClick = e => {
+    const index = findNodeByAttribute(e.target, INDEX_DATA_ATTR).getAttribute(
+      INDEX_DATA_ATTR
+    );
     this.props.onSelect(index, e);
   };
 
@@ -33,7 +40,10 @@ class SuggestionBox extends Component {
                 ? " suggestion-box__item--selected"
                 : "")
             }
-            onClick={this.handleSuggestionClick(index)}
+            // Set appropriate index attribute.
+            // We'll need it for receiving index in onClick handler
+            {...{ [INDEX_DATA_ATTR]: index }}
+            onClick={this.handleSuggestionClick}
           >
             <Highlight
               text={suggestion.label}
