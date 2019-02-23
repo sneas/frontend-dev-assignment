@@ -4,7 +4,7 @@ import "./SuggestionBox.css";
 import Highlight from "../Highlight/Highlight";
 import { findNodeByAttribute } from "../../utils/find-node-by-attribute";
 
-const INDEX_DATA_ATTR = "data-index";
+export const INDEX_DATA_ATTR = "data-index";
 
 class SuggestionBox extends Component {
   static propTypes = {
