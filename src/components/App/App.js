@@ -76,9 +76,6 @@ class App extends Component {
         <dl className="inline">
           <dt className="txt-strong">Entered query</dt>
           <dd>{this.state.query}</dd>
-
-          <dt className="txt-strong">Submitted query</dt>
-          <dd>{this.state.submittedQuery}</dd>
         </dl>
       </div>
     );
