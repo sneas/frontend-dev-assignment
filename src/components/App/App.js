@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SearchBox from "../SearchBox/SearchBox";
 import * as api from "../../utils/api";
+import { getQuery } from "./get-query";
 
 const search = query =>
   api.search(query).then(res =>
@@ -14,10 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    const params = new URLSearchParams(
-      window && window.location && window.location.search
-    );
-    const query = params.get("query") || "";
+    const query = getQuery(window);
 
     this.state = {
       query,
