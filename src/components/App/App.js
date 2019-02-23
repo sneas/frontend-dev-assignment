@@ -3,7 +3,7 @@ import SearchBox from "../SearchBox/SearchBox";
 import * as api from "../../utils/api";
 import { getQuery } from "./get-query";
 
-const search = query =>
+const doSearch = query =>
   api.search(query).then(res =>
     res.map(suggestion => ({
       label: `${suggestion.searchterm} (${suggestion.nrResults})`,
@@ -45,7 +45,7 @@ class App extends Component {
           <SearchBox
             name="query"
             value={this.state.query}
-            doSearch={search}
+            doSearch={doSearch}
             onChange={this.handleQueryChange}
             onSelect={this.handleSelect}
           />
