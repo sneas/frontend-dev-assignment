@@ -16,7 +16,8 @@ class SearchBox extends Component {
   static defaultProps = {
     name: "",
     value: "",
-    onChange: () => {}
+    onChange: () => {},
+    onSelect: () => {}
   };
 
   state = {

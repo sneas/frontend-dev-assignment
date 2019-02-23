@@ -1,15 +1,8 @@
 import React, { Component } from "react";
 import SearchBox from "../SearchBox/SearchBox";
-import * as api from "../../utils/api";
 import { getQuery } from "./get-query";
-
-const doSearch = query =>
-  api.search(query).then(res =>
-    res.map(suggestion => ({
-      label: `${suggestion.searchterm} (${suggestion.nrResults})`,
-      value: suggestion.searchterm
-    }))
-  );
+import { doSearch } from "./do-search";
+import * as api from "../../utils/api";
 
 class App extends Component {
   constructor(props) {
@@ -45,7 +38,7 @@ class App extends Component {
           <SearchBox
             name="query"
             value={this.state.query}
-            doSearch={doSearch}
+            doSearch={doSearch(api.search)}
             onChange={this.handleQueryChange}
             onSelect={this.handleSelect}
           />
