@@ -42,7 +42,7 @@ class SearchBox extends Component {
   handleInputChange = query => {
     this.setState({ query, userQuery: query, suggestionIndex: -1 });
 
-    if (query.length < 2) {
+    if (query.length < 3) {
       this.setState({ suggestions: [] });
       return;
     }
