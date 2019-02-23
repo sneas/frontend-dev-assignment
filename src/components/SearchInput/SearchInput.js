@@ -74,7 +74,7 @@ class SearchInput extends Component {
         <button
           type="button"
           onClick={this.handleClearClick}
-          className={`search__button ${clearButtonExtraClass}`}
+          className={`search__button search__button-clear ${clearButtonExtraClass}`}
           tabIndex="-1"
         >
           <FontAwesomeIcon className="search__icon" icon={faTimesCircle} />
@@ -82,7 +82,7 @@ class SearchInput extends Component {
         <button
           type="submit"
           onClick={this.handleSubmitClick}
-          className="search__button"
+          className="search__button search__button-submit"
           tabIndex="-1"
         >
           <FontAwesomeIcon
