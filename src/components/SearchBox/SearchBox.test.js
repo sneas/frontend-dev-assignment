@@ -1,8 +1,8 @@
 import React from "react";
 import SearchBox from "./SearchBox";
 import { shallow, mount } from "../../enzyme";
-import { doSearch } from "../__test__/do-search";
-import { suggestions } from "../__test__/suggestions";
+import { doSearch } from "../__mocks__/do-search";
+import { suggestions } from "../__mocks__/suggestions";
 
 describe("SearchBox", () => {
   it("renders without crashing", () => {

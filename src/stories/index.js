@@ -6,7 +6,7 @@ import * as api from "./mock-api";
 import "../index.css";
 import SearchInput from "../components/SearchInput/SearchInput";
 import SuggestionBox from "../components/SuggestionBox/SuggestionBox";
-import { suggestions } from "../components/__test__/suggestions";
+import { suggestions } from "../components/__mocks__/suggestions";
 
 const mockSearch = doSearch(api.search);
 

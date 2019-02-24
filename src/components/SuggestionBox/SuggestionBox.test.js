@@ -1,7 +1,7 @@
 import React from "react";
 import SuggestionBox, { INDEX_DATA_ATTR } from "./SuggestionBox";
 import { shallow, mount } from "../../enzyme";
-import { suggestions } from "../__test__/suggestions";
+import { suggestions } from "../__mocks__/suggestions";
 
 describe("SuggestionBox", () => {
   it("should not highlight non-existing index", () => {
