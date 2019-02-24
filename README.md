@@ -1,13 +1,16 @@
 ## Developer's notes
 
+The demo shows SearchBox embedded into standard HTML form.
+The form reloads page with GET variable. This has been done on purpose
+to demonstrate SearchBox's compatibility with regular forms.
+
 * For the sake of simplicity Bootstrap's container class has been added to index.css
-* How about styled components?
-* How about typescript?
 * Used fontawesome for appropriate icons
 * Used prop-types for validation and IDE autocomplete
+* Used enzyme for testing tools
 * SuggestionBox box preferable behaviours and limitations:
-    - memoize data requests (-)
     - debounce data requests (-)
+    - memoize data requests (-)
     - case-insensitive (+)
     - request for new data on query change (+)
     - request for new data if query is 2 symbols and more (+)
@@ -25,9 +28,8 @@
     - display suggestion as a new query on selecting with keyboard (+)
     - apply suggestion and hide suggestion box on enter (+)
     - apply suggestion and hide suggestion box on mouse click (+)
-    - display scroll on drop-down whenever needed (-)
+    - display scroll in drop-down whenever needed (-)
 * Basically, the suggestion box mocks Google Chrome's autosuggestor
-* The demo shows SearchBox embedded into standard HTML form. The form reloads page with GET variable. This has been done on purpose to demonstrate SearchBox's compatibility with regular forms.
 
 ## de Bijenkorf Frontend Dev assignment
 
