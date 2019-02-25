@@ -7,6 +7,7 @@ to demonstrate SearchBox's compatibility with regular forms.
 * For the sake of simplicity Bootstrap's container class has been added to index.css
 * Used fontawesome for appropriate icons
 * Used prop-types for validation and IDE autocomplete
+* SearchInput element doesn't properly works in MS browsers because `focus-within` pseudo class been used. A polyfill can help.
 * Used enzyme for testing tools
 * SuggestionBox box preferable behaviours and limitations:
     - debounce data requests (-)
