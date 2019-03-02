@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./SuggestionBox.css";
 import Highlight from "../Highlight/Highlight";
-import { findNodeByAttribute } from "../../utils/find-node-by-attribute";
-
-export const INDEX_DATA_ATTR = "data-index";
+import { setEventParam, getEventParam } from "react-event-param";
 
 class SuggestionBox extends Component {
   static propTypes = {
@@ -22,9 +20,7 @@ class SuggestionBox extends Component {
   };
 
   handleSuggestionClick = e => {
-    const index = findNodeByAttribute(e.target, INDEX_DATA_ATTR).getAttribute(
-      INDEX_DATA_ATTR
-    );
+    const index = getEventParam(e.target);
     this.props.onSelect(index, e);
   };
 
@@ -42,7 +38,7 @@ class SuggestionBox extends Component {
             }
             // Set appropriate index attribute.
             // We'll need it for receiving index in onClick handler
-            {...{ [INDEX_DATA_ATTR]: index }}
+            {...setEventParam(index)}
             onClick={this.handleSuggestionClick}
           >
             <Highlight

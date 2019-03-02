@@ -31,6 +31,8 @@ to demonstrate SearchBox's compatibility with regular forms.
     - apply suggestion and hide suggestion box on mouse click (+)
     - display scroll in drop-down whenever needed (-)
 * Basically, the suggestion box mocks Google Chrome's autosuggestor
+* A new library was emerged: https://github.com/sneas/react-event-param.
+  You can find it's usage in `SuggestionBox` component
 
 ## de Bijenkorf Frontend Dev assignment
 
