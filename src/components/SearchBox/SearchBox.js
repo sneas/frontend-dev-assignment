@@ -20,15 +20,19 @@ class SearchBox extends Component {
     onSelect: () => {}
   };
 
-  state = {
-    query: this.props.value,
-    userQuery: this.props.query,
-    suggestions: [],
-    suggestionIndex: -1,
-    suggestionVisible: false
-  };
+  constructor(props) {
+    super(props);
 
-  hideTimer;
+    this.state = {
+      query: props.value,
+      userQuery: props.query,
+      suggestions: [],
+      suggestionIndex: -1,
+      suggestionVisible: false
+    };
+
+    this.hideTimer = undefined;
+  }
 
   componentWillUnMount() {
     clearTimeout(this.hideTimer);
@@ -175,19 +179,18 @@ class SearchBox extends Component {
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
         />
-        {this.state.suggestionVisible &&
-          this.state.suggestions.length > 0 && (
-            <div className="search-box__suggestion-container">
-              <div className="search-box__suggestion">
-                <SuggestionBox
-                  suggestions={this.state.suggestions}
-                  index={this.state.suggestionIndex}
-                  onSelect={this.handleSuggestionSelect}
-                  query={this.state.userQuery}
-                />
-              </div>
+        {this.state.suggestionVisible && this.state.suggestions.length > 0 && (
+          <div className="search-box__suggestion-container">
+            <div className="search-box__suggestion">
+              <SuggestionBox
+                suggestions={this.state.suggestions}
+                index={this.state.suggestionIndex}
+                onSelect={this.handleSuggestionSelect}
+                query={this.state.userQuery}
+              />
             </div>
-          )}
+          </div>
+        )}
       </div>
     );
   }

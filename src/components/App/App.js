@@ -1,22 +1,21 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import SearchBox from "../SearchBox/SearchBox";
 import { getQuery } from "./get-query";
 import { doSearch } from "./do-search";
 import * as api from "../../utils/api";
 
-class App extends Component {
+const query = getQuery(window);
+
+class App extends PureComponent {
+  state = {
+    query,
+    submittedQuery: query
+  };
+
   constructor(props) {
     super(props);
-
-    const query = getQuery(window);
-
-    this.state = {
-      query,
-      submittedQuery: query
-    };
+    this.form = undefined;
   }
-
-  form;
 
   handleQueryChange = query => {
     this.setState({ query });
